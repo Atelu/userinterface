@@ -1,27 +1,32 @@
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { AuthGuard } from './guards/auth.guard';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { ApiService } from '././api.service';
 
-const routes: Routes = [
-  {
-    path: 'dashboard',
-    loadChildren: './dashboard/dashboard.module#DashboardModule',
-  },
+export const Approutes: Routes = [
 
+ {
+   path: '',
+   redirectTo: '/login',
+   pathMatch: 'full'
+ },
   {
     path: 'login',
     loadChildren: './login/login.module#LoginModule',
   },
 
   {
-    path: '',
-    redirectTo: '/dashboard',
-    pathMatch: 'full',
-  }
+    path: 'dashboard',
+    loadChildren: './dashboard/dashboard.module#DashboardModule',
+  },
+
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(Approutes, {
+    useHash: true,
+    enableTracing: true,
+  })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
